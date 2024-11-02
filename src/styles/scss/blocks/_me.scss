@@ -1,0 +1,228 @@
+.my_account {
+  padding-top: 60px;
+  .container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 25px;
+    .no_your_musics {
+      text-align: center;
+      color: #fff;
+    }
+    .top_block {
+      width: 100%;
+      min-height: 200px;
+      padding: 35px;
+      background-color: #000;
+      border-radius: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      .avatar_and_nickname {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        .avatar_image {
+          width: 140px;
+          height: 140px;
+          border-radius: 50%;
+          input {
+            display: none;
+          }
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          label {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-size: 14px;
+            cursor: pointer;
+            background: rgba($color: #000000, $alpha: 0.7);
+            transition: all 0.3s ease;
+            opacity: 0;
+          }
+          &:hover {
+            label {
+              opacity: 1;
+            }
+          }
+        }
+        .nickname_and_settings_button {
+          display: flex;
+          flex-direction: column;
+          align-items: start;
+          row-gap: 15px;
+          .nickname {
+            font-size: 64px;
+            font-weight: bold;
+            color: #fff;
+            text-wrap: wrap;
+          }
+          button {
+            padding: 5px 10px;
+            background-color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            &:hover {
+              transform: scale(1.05);
+              opacity: 0.5;
+            }
+          }
+        }
+      }
+      .total_tracks {
+        font-size: 20px;
+        color: #fff;
+        text-wrap: nowrap;
+      }
+    }
+    .main_content {
+      padding: 35px;
+      width: 100%;
+      background-color: #000;
+      border-radius: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      row-gap: 35px;
+      .search_block {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        input {
+          max-width: 772px;
+          width: 100%;
+          background-color: transparent;
+          border: 2px solid #fff;
+          border-radius: 15px;
+          outline: none;
+          padding: 0 25px;
+          font-size: 16px;
+          font-weight: bold;
+          color: #fff;
+          height: 60px;
+        }
+      }
+      .tracks {
+        display: flex;
+        flex-direction: column;
+        row-gap: 15px;
+      }
+      .card {
+        width: 100%;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        background-color: #fff;
+        padding: 0 20px;
+        border-radius: 15px;
+        .play_button {
+          width: 70px;
+          height: 70px;
+          background-size: cover;
+          background-position: center;
+          border: none;
+          border-radius: 50%;
+          font-size: 24px;
+          color: #fff;
+          cursor: pointer;
+        }
+        .card_main {
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+          align-items: center;
+          z-index: 2;
+        }
+        .card_image_and_actor {
+          display: flex;
+          gap: 25px;
+          align-items: center;
+          .actor_and_nickname {
+            .music_name {
+              font-weight: bold;
+              margin-bottom: 10px;
+            }
+            .music_actor {
+              opacity: 0.5;
+            }
+          }
+        }
+        .duration_and_isFavorite {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          .favorite_icon {
+            font-size: 18px;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .my_account {
+    .container {
+      .top_block {
+        flex-direction: column;
+        align-items: center;
+        row-gap: 15px;
+        .avatar_and_nickname {
+          flex-direction: column;
+          align-items: center;
+          .nickname_and_settings_button {
+            align-items: normal;
+            .nickname {
+              width: 100%;
+              text-align: center;
+              word-break: break-all;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 545px) {
+  .my_account {
+    .container {
+      .tracks {
+        .card {
+          height: auto;
+          padding: 20px 0;
+          .play_button {
+            width: 100px;
+            height: 100px;
+            font-size: 28px;
+          }
+          .card_image_and_actor {
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+          }
+          .actor_and_nickname {
+            text-align: center;
+          }
+          .card_main {
+            flex-direction: column;
+            align-items: center;
+          }
+          .duration_and_isFavorite {
+            flex-direction: column;
+            align-items: center;
+            row-gap: 10px;
+          }
+        }
+      }
+    }
+  }
+}

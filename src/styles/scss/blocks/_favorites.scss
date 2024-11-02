@@ -1,0 +1,128 @@
+.favorites {
+  margin-top: 60px;
+  h1 {
+    text-align: center;
+    font-size: 64px;
+    color: #fff;
+    margin-bottom: 40px;
+  }
+  .search_block {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 80px;
+    input {
+      max-width: 772px;
+      width: 100%;
+      height: 60px;
+      font-weight: bold;
+      font-size: 16px;
+      padding: 0 25px;
+      border: 2px solid #fff;
+      border-radius: 15px;
+      background-color: transparent;
+      color: #fff;
+      outline: none;
+    }
+  }
+  .no_your_musics {
+    text-align: center;
+    color: #fff;
+    height: 100px;
+  }
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    row-gap: 25px;
+    .card {
+      width: 100%;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      background-color: #fff;
+      padding: 0 20px;
+      border-radius: 15px;
+      &:hover {
+        background-color: rgba($color: #fff, $alpha: 0.9);
+      }
+      .play_button {
+        width: 70px;
+        height: 70px;
+        background-size: cover;
+        background-position: center;
+        border: none;
+        border-radius: 50%;
+        font-size: 24px;
+        color: #fff;
+        cursor: pointer;
+      }
+      .card_main {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        align-items: center;
+        z-index: 2;
+      }
+      .card_image_and_actor {
+        display: flex;
+        gap: 25px;
+        align-items: center;
+        .actor_and_nickname {
+          .music_name {
+            font-weight: bold;
+            margin-bottom: 10px;
+          }
+          .music_actor {
+            opacity: 0.5;
+          }
+        }
+      }
+      .duration_and_isFavorite {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        .delete_icon {
+          font-size: 18px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 545px) {
+  .favorites {
+    .container {
+      h1 {
+        font-size: 50px;
+      }
+      .card {
+        height: auto;
+        padding: 20px 0;
+        .play_button {
+          width: 100px;
+          height: 100px;
+          font-size: 28px;
+        }
+        .card_image_and_actor {
+          flex-direction: column;
+          align-items: center;
+          margin-bottom: 20px;
+        }
+        .actor_and_nickname {
+          text-align: center;
+        }
+        .card_main {
+          flex-direction: column;
+          align-items: center;
+        }
+        .duration_and_isFavorite {
+          flex-direction: column;
+          align-items: center;
+          row-gap: 10px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,218 @@
+.welcome_to_ghoul_music {
+  margin: 50px 0 70px 0;
+  .container {
+    background-image: url("../../assets/images/welcome_to_ghoul_music_background.svg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+    color: #fff;
+    h1 {
+      font-weight: bold;
+      font-size: 40px;
+    }
+    p {
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      margin: 15px 0 60px 0;
+    }
+    a {
+      display: inline-block;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: bold;
+      color: #000;
+      padding: 15px 30px;
+      background-color: #fff;
+      border-radius: 10px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      &:hover {
+        transform: scale(0.95);
+        background-color: transparent;
+        color: #fff;
+      }
+    }
+  }
+}
+
+.more_info {
+  margin-bottom: 100px;
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    h1 {
+      font-size: 64px;
+    }
+    p {
+      text-align: center;
+      font-weight: bold;
+      font-size: 20px;
+      margin: 40px 0 5px 0;
+    }
+  }
+}
+
+.populate_actors {
+  margin-bottom: 100px;
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    h1 {
+      font-size: 64px;
+    }
+    .subtitle {
+      font-size: 24px;
+      font-weight: bold;
+      margin: 15px 0 50px 0;
+      text-align: center;
+    }
+    .actors_container {
+      display: flex;
+      gap: 50px;
+      flex-wrap: wrap;
+      .actor {
+        width: 280px;
+        height: 312px;
+        padding: 25px 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #000000;
+        color: #fff;
+        border-radius: 15px;
+        flex-grow: 1;
+        .image_actor {
+          width: 130px;
+          height: 130px;
+          border-radius: 50%;
+          background-size: cover;
+          background-position: top;
+        }
+        .actor_name {
+          margin: 23px 0 40px 0;
+          font-size: 16px;
+          font-weight: bold;
+        }
+        a {
+          display: inline-block;
+          text-decoration: none;
+          color: #fff;
+          padding: 8px 50px;
+          border-radius: 10px;
+          font-size: 20px;
+          font-weight: bold;
+          transition: all 0.3s ease;
+          &:hover {
+            transform: scale(0.95);
+            background-color: #fff;
+            color: #000;
+          }
+        }
+      }
+    }
+  }
+}
+
+.have_questions {
+  .container {
+    height: 581px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    row-gap: 80px;
+    background-image: url("../../assets/images/questions_background.svg");
+    background-size: cover;
+    background-position: center;
+    h1 {
+      font-size: 64px;
+      color: #fff;
+    }
+    button {
+      padding: 25px 40px;
+      font-size: 24px;
+      font-weight: bold;
+      background-color: #000;
+      border-radius: 15px;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      &:hover {
+        transform: scale(1.05);
+        background-color: transparent;
+      }
+    }
+  }
+}
+
+@media (max-width: 749px) {
+  .have_questions {
+    .container {
+      h1 {
+        font-size: 40px;
+        text-align: center;
+      }
+    }
+  }
+  .welcome_to_ghoul_music {
+    .container {
+      h1 {
+        font-size: 30px;
+      }
+    }
+  }
+}
+
+@media (max-width: 580px) {
+  .more_info {
+    .container {
+      h1 {
+        font-size: 40px;
+      }
+      p {
+        font-size: 14px;
+      }
+      img {
+        width: 100%;
+      }
+    }
+  }
+  .populate_actors {
+    .container {
+      h1 {
+        font-size: 40px;
+      }
+      .subtitle {
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+@media (max-width: 568px) {
+  .welcome_to_ghoul_music {
+    .container {
+      h1 {
+        font-size: 24px;
+        text-align: center;
+      }
+      p {
+        font-size: 14px;
+      }
+    }
+  }
+}

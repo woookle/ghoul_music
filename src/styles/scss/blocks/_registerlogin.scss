@@ -1,0 +1,74 @@
+.register {
+  margin-top: 50px;
+  h1 {
+    font-size: 64px;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 25px;
+  }
+  .register_form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    .inputs_container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      row-gap: 25px;
+      margin-bottom: 25px;
+      input {
+        max-width: 772px;
+        width: 100%;
+        height: 60px;
+        padding: 0 25px;
+        font-size: 16px;
+        font-weight: bold;
+        background-color: transparent;
+        border: 2px solid #fff;
+        border-radius: 15px;
+        color: #fff;
+        outline: none;
+      }
+    }
+    .registerBtn {
+      padding: 15px 40px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #000;
+      background-color: #fff;
+      border: none;
+      cursor: pointer;
+      border-radius: 15px;
+      transition: all 0.3s ease;
+      &:hover {
+        transform: scale(0.95);
+        background-color: #000;
+        color: #fff;
+      }
+    }
+  }
+  .have_account {
+    text-align: center;
+    color: #fff;  
+    font-size: 16px;
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 570px) {
+  .register {
+    h1 {
+      font-size: 32px;
+    }
+    .register_form {
+      .registerBtn {
+        width: 100%;
+        font-size: 18px;
+        padding: 15px 20px;
+      }
+    }
+  }
+}

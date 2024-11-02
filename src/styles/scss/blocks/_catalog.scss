@@ -1,0 +1,152 @@
+.catalog {
+  margin-top: 80px;
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .show_more {
+      padding: 19px 31px;
+      background-color: #fff;
+      color: #000;
+      font-size: 21px;
+      font-weight: bold;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      &:hover {
+        opacity: 0.5;
+      }
+    }
+    h1 {
+      font-size: 64px;
+      color: #fff;
+      margin-bottom: 70px;
+    }
+    input {
+      max-width: 772px;
+      width: 100%;
+      height: 60px;
+      padding: 0 25px;
+      background-color: transparent;
+      border: 2px solid #fff;
+      border-radius: 15px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #fff;
+      outline: none;
+    }
+    .musics_container {
+      display: flex;
+      flex-direction: column;
+      row-gap: 25px;
+      width: 100%;
+      margin: 80px 0 40px 0;
+      .no_music_catalog {
+        width: 100%;
+        text-align: center;
+        color: #fff;
+      }
+      .card {
+        width: 100%;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        background-color: #fff;
+        padding: 0 20px;
+        border-radius: 15px;
+        &:hover {
+          background-color: rgba($color: #fff, $alpha: 0.9);
+        }
+        .play_button {
+          width: 70px;
+          height: 70px;
+          background-size: cover;
+          background-position: center;
+          border: none;
+          border-radius: 50%;
+          font-size: 24px;
+          color: #fff;
+          cursor: pointer;
+        }
+        .card_main {
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+          align-items: center;
+          z-index: 2;
+        }
+        .card_image_and_actor {
+          display: flex;
+          gap: 25px;
+          align-items: center;
+          .actor_and_nickname {
+            .music_name {
+              font-weight: bold;
+              margin-bottom: 10px;
+            }
+            .music_actor {
+              text-decoration: none;
+              color: #000;
+              cursor: pointer;
+              border-bottom: 1px solid transparent;
+              padding-bottom: 3px;
+              opacity: 0.5;
+              &:hover {
+                border-bottom-color: #000;
+                padding-bottom: 0;
+              }
+            }
+          }
+        }
+        .duration_and_isFavorite {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          .favorite_icon {
+            font-size: 18px;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 545px) {
+  .catalog {
+    .container {
+      h1 {
+        font-size: 50px;
+      }
+      .musics_container {
+        .card {
+          height: auto;
+          padding: 20px 0;
+          .play_button {
+            width: 100px;
+            height: 100px;
+            font-size: 28px;
+          }
+          .card_image_and_actor {
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+          }
+          .actor_and_nickname {
+            text-align: center;
+          }
+          .card_main {
+            flex-direction: column;
+            align-items: center;
+          }
+          .duration_and_isFavorite {
+            flex-direction: column;
+            align-items: center;
+            row-gap: 10px;
+          }
+        }
+      }
+    }
+  }
+}

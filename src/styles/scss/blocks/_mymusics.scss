@@ -1,0 +1,120 @@
+.my_music {
+  .loading_man {
+    text-align: center;
+    color: #fff;
+    height: 400px;
+  }
+  h1 {
+    text-align: center;
+    margin-top: 60px;
+    font-size: 64px;
+    color: #fff;
+  }
+  .upload_music_link {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+    a {
+      padding: 10px 20px;
+      background-color: #fff;
+      color: #000;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border-radius: 5px;
+      &:hover {
+        opacity: 0.5;
+      }
+    }
+  }
+  .input_block {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 10px 0 70px 0;
+    input {
+      max-width: 772px;
+      width: 100%;
+      height: 60px;
+      padding: 0 25px;
+      font-size: 16px;
+      font-weight: bold;
+      outline: none;
+      color: #fff;
+      border: 2px solid #fff;
+      background: transparent;
+      border-radius: 15px;
+    }
+  }
+  .container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    gap: 20px;
+    .no_your_musics {
+      width: 100%;
+      text-align: center;
+      color: #fff;
+    }
+    .music_card {
+      width: 400px;
+      height: 480px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 25px 75px;
+      border-radius: 15px;
+      .music_image {
+        width: 250px;
+        height: 250px;
+        border-radius: 50%;
+      }
+      .music_title {
+        font-size: 20px;
+        font-weight: bold;
+        word-wrap: break-word;
+        text-align: center;
+        margin: 40px 0 20px 0;
+        background-color: #fff;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 280px;
+        padding: 0 5px;
+      }
+      .delete_music {
+        margin-top: 30px;
+        max-width: 230px;
+        height: 60px;
+        width: 100%;
+        border: none;
+        background-color: #000;
+        color: #fff;
+        border-radius: 10px;
+        font-size: 20px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        &:hover {
+          transform: scale(0.95);
+          background-color: red;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 485px) {
+  .my_music {
+    h1 {
+      font-size: 50px;
+      text-align: center;
+    }
+    .container {
+      .music_card {
+        width: 100%;
+      }
+    }
+  }
+}

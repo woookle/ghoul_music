@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+$header__background: #404040;
+$footer__background: #404040;
+$body__background: #1E1E1E;
+
+@import "./blocks/header";
+@import "./blocks/footer";
+@import "./blocks/index_page";
+@import "./blocks/catalog";
+@import "./blocks/registerlogin";
+@import "./blocks/mymusics";
+@import "./blocks/favorites";
+@import "./blocks/me";
+@import "./blocks/account_settings";
+@import "./blocks/uploading_music";
+
+* {margin: 0; padding: 0; box-sizing: border-box; font-family: "Montserrat", sans-serif; transition: all 0.3s ease;}
+
+
+body {
+  background-color: $body__background;
+  padding-top: 100px;
+  padding-bottom: 140px;
+}
+
+.content {
+  min-height: 100vh;
+  margin-bottom: -240px;
+  &::after {
+    content: "";
+    display: block;
+    height: 240px;
+  }
+}
+
+.container {
+  max-width: 1240px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 10px;
+  }
+}

@@ -1,0 +1,77 @@
+.music__bar {
+  position: fixed;
+  bottom: 0;
+  z-index: 100;
+  width: 100%;
+  background-position: center !important;
+  background-size: cover !important;
+}
+
+.music__bar .music__container {
+  width: 100%;
+  padding: 20px;
+  color: #fff;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+  gap: 35px;
+  backdrop-filter: blur(10px);
+}
+
+.music_left button {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.music_left button .isplayicon {
+  position: relative;
+  z-index: 1;
+  font-size: 17px;
+}
+
+.music_left button .button_background {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 1px solid #fff;
+  background-size: cover !important;
+  background-position: center !important;
+  animation: rotating 10s linear infinite;
+}
+
+
+.music_left button.pausedButton .button_background {
+  animation-play-state: paused;
+}
+
+.music_time_container {
+  display: flex;
+  justify-content: space-between;
+  p {
+    padding: 5px 10px;
+    background-color: #000;
+    border-radius: 5px;
+  }
+}
+
+.music__right {
+  width: 100%;
+}
+
+.bar {
+  width: 100%;
+}
+
+@keyframes rotating {
+  0% {transform: rotate(0deg);}
+  100% {transform: rotate(360deg);}
+}

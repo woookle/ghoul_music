@@ -1,0 +1,117 @@
+.uploading_music {
+  .container {
+    padding-top: 40px;
+    h1 {
+      text-align: center;
+      font-size: 48px;
+      color: #fff;
+      margin-bottom: 15px;
+    }
+    .upload_music_form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      row-gap: 50px;
+      background-color: #000;
+      padding: 50px;
+      border-radius: 20px;
+      button {
+        max-width: 300px;
+        width: 100%;
+        padding: 15px;
+        background-color: #fff;
+        border: none;
+        color: #000;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        &:hover {
+          transform: scale(0.95);
+          background-color: transparent;
+          color: #fff;
+          text-shadow: 0 0 10px #fff;
+        }
+      }
+    }
+    .input_music_name {
+      width: 80%;
+      padding: 20px;
+      outline: none;
+      border: 2px solid #fff;
+      background-color: transparent;
+      color: #fff;
+      font-weight: bold;
+      border-radius: 5px;
+    }
+    .upload_music_block {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      row-gap: 10px;
+      input {
+        display: none;
+      }
+      .music_image_text {
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: end;
+        margin-right: 10px;
+        width: 127px;
+        text-align: left;
+      }
+      label {
+        padding: 10px 20px;
+        background-color: #fff;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+      }
+      .music_filename {
+        border: 2px solid #fff;
+        color: #fff;
+        padding: 10px 20px;
+        max-width: 200px;
+        position: relative;
+        overflow: scroll;
+        text-wrap: nowrap;
+      }
+    }
+    .files_inputs_main {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  }
+}
+
+@media (max-width: 568px) {
+  .uploading_music {
+    .container {
+      .upload_music_block {
+        flex-direction: column;
+        .music_image_text {
+          width: 100%;
+          margin: 0;
+          justify-content: center;
+        }
+        .music_filename {
+          text-align: center;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 455px) {
+  .uploading_music {
+    .container {
+      .upload_music_form {
+        padding: 25px;
+        row-gap: 25px;
+      }
+    }
+  }
+}

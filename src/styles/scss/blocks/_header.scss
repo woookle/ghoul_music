@@ -1,0 +1,118 @@
+header {
+  background-color: $header__background;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .burger_menu {
+    display: none;
+    flex-direction: column;
+    row-gap: 5px;
+    cursor: pointer;
+    .line {
+      width: 30px;
+      height: 3px;
+      background-color: #fff;
+      transition: all 0.3s ease;
+    }
+  }
+  .nav_links {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    li {
+      a {
+        &:hover {
+          opacity: 0.5;
+        }
+      }
+      .link {
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 20px;
+        color: #fff;
+        &.active {
+          opacity: 0.5;
+        }
+      }
+    }
+  }
+  .login_account {
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+  }
+  .header_avatar {
+    width: 50px;
+    height: 50px;
+    background-size: cover;
+    background-position: top;
+    border-radius: 50%;
+    border: 1px solid transparent;
+    cursor: pointer;
+    &:hover {
+      border-color: #fff;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    .container {
+      flex-wrap: wrap;
+    }
+    .burger_menu {
+      display: flex;
+      z-index: 9999;
+      &.active_burger {
+        width: 30px;
+        height: 30px;
+        position: relative;
+        .line {
+          background-color: #fff;
+          width: 100%;
+          height: 3px;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          &:nth-child(1) {
+            transform: translate(-50%, -50%) rotate(45deg);
+          }
+          &:nth-child(2) {
+            display: none;
+          }
+          &:nth-child(3) {
+            transform: translate(-50%, -50%) rotate(-45deg);
+          }
+        }
+      }
+    }
+    .nav_links {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      display: none;
+      z-index: 9998;
+      transition: all 0.3s ease;
+      &.active_burger {
+        display: flex;
+        background: rgba($color: #000000, $alpha: 0.9);
+      }
+    }
+  }
+}
