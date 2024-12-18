@@ -16,7 +16,7 @@
 <p align='center'>React, Redux-Toolkit, Axios, SCSS, Animate.css</p>
 <br />
 <h2 align='center'>𝖇𝖆𝖈𝖐𝖊𝖓𝖉</h2>
-<p align='center'>MongoDB, Mongoose, Express, Multer, UUID</p>
+<p align='center'>MongoDB, Mongoose, Express, Multer, UUID, Cookie-Parser</p>
 <br/>
 <h2 align='center'>.𝖊𝖓𝖛 (𝖋𝖗𝖔𝖓𝖙𝖊𝖓𝖉)</h2>
 
@@ -29,6 +29,15 @@ REACT_APP_API_URL = your_api_url
 ```
 PORT = your_port (default 5000)
 DATABASE_URL = 'your_mongodb_database_url'
+```
+<br />
+
+<br />
+<h2 align='center'>𝖋𝖎𝖑𝖊𝖘</h2>
+
+```
+/server/uploads/images
+/server/uploads/audios
 ```
 <br />
 

@@ -389,7 +389,7 @@ footer .container {
   background-position: center;
   border: none;
   border-radius: 50%;
-  font-size: 24px;
+  font-size: 18px;
   color: #fff;
   cursor: pointer;
 }
@@ -428,7 +428,6 @@ footer .container {
 }
 .catalog .container .musics_container .card .duration_and_isFavorite .favorite_icon {
   font-size: 18px;
-  cursor: pointer;
 }
 
 @media (max-width: 545px) {
@@ -442,7 +441,6 @@ footer .container {
   .catalog .container .musics_container .card .play_button {
     width: 100px;
     height: 100px;
-    font-size: 28px;
   }
   .catalog .container .musics_container .card .card_image_and_actor {
     flex-direction: column;
@@ -649,6 +647,11 @@ footer .container {
 .favorites {
   margin-top: 60px;
 }
+.favorites .loading_bro {
+  text-align: center;
+  color: #fff;
+  font-size: 17px;
+}
 .favorites h1 {
   text-align: center;
   font-size: 64px;
@@ -704,7 +707,7 @@ footer .container {
   background-position: center;
   border: none;
   border-radius: 50%;
-  font-size: 24px;
+  font-size: 18px;
   color: #fff;
   cursor: pointer;
 }
@@ -725,7 +728,16 @@ footer .container {
   margin-bottom: 10px;
 }
 .favorites .container .card .card_image_and_actor .actor_and_nickname .music_actor {
+  text-decoration: none;
+  color: #000;
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 3px;
   opacity: 0.5;
+}
+.favorites .container .card .card_image_and_actor .actor_and_nickname .music_actor:hover {
+  border-bottom-color: #000;
+  padding-bottom: 0;
 }
 .favorites .container .card .duration_and_isFavorite {
   display: flex;
@@ -748,7 +760,6 @@ footer .container {
   .favorites .container .card .play_button {
     width: 100px;
     height: 100px;
-    font-size: 28px;
   }
   .favorites .container .card .card_image_and_actor {
     flex-direction: column;
@@ -901,7 +912,7 @@ footer .container {
   background-position: center;
   border: none;
   border-radius: 50%;
-  font-size: 24px;
+  font-size: 18px;
   color: #fff;
   cursor: pointer;
 }
@@ -961,7 +972,6 @@ footer .container {
   .my_account .container .tracks .card .play_button {
     width: 100px;
     height: 100px;
-    font-size: 28px;
   }
   .my_account .container .tracks .card .card_image_and_actor {
     flex-direction: column;
@@ -1203,6 +1213,13 @@ body {
   max-width: 1240px;
   width: 100%;
   margin: 0 auto;
+}
+
+.download_icon, .favorite_icon_isauth {
+  cursor: pointer;
+}
+.download_icon:hover, .favorite_icon_isauth:hover {
+  opacity: 0.6;
 }
 
 @media (max-width: 768px) {

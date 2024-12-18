@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getMusics } from "../../api/musicsAPI";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
-import { getActors } from "../../api/artistAPI";
+import { faDownload, faHeart, faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
+import { addFavorites, getActors, removeFavorites } from "../../api/artistAPI";
 import { useParams } from "react-router-dom";
 import {
   pauseAudio,
@@ -11,6 +11,8 @@ import {
   setCurrentTrack,
   setTracks,
 } from "../../store/playerSlice";
+import downloadAudio from "../../utils/downloadAudio";
+import { toast } from "react-toastify";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -20,6 +22,7 @@ const Profile = () => {
   const actors = useSelector((state) => state.actors.actors);
   const musics = useSelector((state) => state.music.musics);
   const isLoad = useSelector((state) => state.music.isLoad);
+  const auth = useSelector((state) => state.auth);
 
   const [search, setSearch] = useState("");
   const [mymusic, setMyMusic] = useState([]);
@@ -31,6 +34,18 @@ const Profile = () => {
   const currentTrackIndex = useSelector(
     (state) => state.player.currentTrackIndex
   );
+
+  const addToFavorite = (musicId) => {
+    if (!auth.isAuth) {
+      toast.info("Вы не зарегистрированы!");
+    } else {
+      dispatch(addFavorites({ userId: auth.account._id, musicId: musicId }));
+    }
+  };
+
+  const removeFromFavorite = (musicId) => {
+    dispatch(removeFavorites({ userId: auth.account._id, musicId: musicId }));
+  };
 
   useEffect(() => {
     dispatch(getMusics());
@@ -71,7 +86,7 @@ const Profile = () => {
   return (
     <section className="my_account animate__animated animate__fadeIn">
       <div className="container">
-        <div className="top_block animate__animated animate__fadeInLeft">
+        <div className="top_block animate__animated animate__fadeInDown">
           <div className="avatar_and_nickname">
             <div
               className="avatar_image"
@@ -93,7 +108,7 @@ const Profile = () => {
               : `Треков: ${totalTracks}`}
           </div>
         </div>
-        <div className="main_content animate__animated animate__fadeInRight">
+        <div className="main_content animate__animated animate__fadeInUp">
           <div className="search_block">
             <input
               type="text"
@@ -150,6 +165,33 @@ const Profile = () => {
                     </div>
                     <div className="duration_and_isFavorite">
                       <p className="duration">{el.duration}</p>
+                      {auth.isAuth ? (
+                        auth.account.favoritesMusics.includes(el._id) ? (
+                          <FontAwesomeIcon
+                            icon={faHeart}
+                            className="favorite_icon_isauth"
+                            onClick={() => removeFromFavorite(el._id)}
+                            style={{ color: "#ff3c3c" }}
+                          />
+                        ) : (
+                          <FontAwesomeIcon
+                            icon={faHeart}
+                            className="favorite_icon_isauth"
+                            onClick={() => addToFavorite(el._id)}
+                          />
+                        )
+                      ) : (
+                        <FontAwesomeIcon
+                          icon={faHeart}
+                          className="favorite_icon"
+                          onClick={() => addToFavorite(el._id)}
+                        />
+                      )}
+                      <FontAwesomeIcon
+                        icon={faDownload}
+                        className="download_icon"
+                        onClick={() => downloadAudio(el._id)}
+                      />
                     </div>
                   </div>
                 </div>

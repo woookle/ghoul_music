@@ -31,9 +31,9 @@ const PopulateActors = () => {
         <h1>Музыканты</h1>
         <p className="subtitle">Самые популярные музыканты по прослушиваниям</p>
         <div className="actors_container">
-          {top3actor.map((el) => {
+          {top3actor.map((el, key) => {
             return (
-              <div className="actor">
+              <div className="actor" key={key}>
                 <div className="image_actor" style={{backgroundImage: `url("${API_URL}${el.avatar}")`}}></div>
                 <p className="actor_name">{el.nickname}</p>
                 <NavLink to={`/profile/${el._id}`}>Профиль</NavLink>

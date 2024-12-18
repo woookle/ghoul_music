@@ -10,18 +10,19 @@ const MyMusic = () => {
     dispatch(getMusics());
   }, [dispatch]);
 
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [filteredMusic, setFilteredMusic] = useState([]);
 
-  const auth = useSelector(state => state.auth.account);
-  const musics = useSelector(state => state.music.musics);
-  const isLoad = useSelector(state => state.music.isLoad);
+  const auth = useSelector((state) => state.auth.account);
+  const musics = useSelector((state) => state.music.musics);
+  const isLoad = useSelector((state) => state.music.isLoad);
+  const isAuth = useSelector((state) => state.auth.isAuth)
 
-  const [mymusiclist, setMyMusicList] = useState([])
+  const [mymusiclist, setMyMusicList] = useState([]);
 
   useEffect(() => {
     if (auth && musics) {
-      const filtered = mymusiclist.filter(el =>
+      const filtered = mymusiclist.filter((el) =>
         el.name.toLowerCase().includes(search.toLowerCase())
       );
       setFilteredMusic(filtered);
@@ -29,20 +30,24 @@ const MyMusic = () => {
   }, [search, isLoad]);
 
   useEffect(() => {
-    const mylist = musics.filter(el => el.userId._id === auth._id);
-    setMyMusicList(mylist)
-  }, [isLoad])
+    if (auth) {
+      const mylist = musics.filter((el) => el.userId._id === auth._id);
+      setMyMusicList(mylist);
+    }
+  }, [isLoad]);
 
   const deleteMusicFunction = (musicId) => {
-    dispatch(delMusic(musicId))
-  }
+    dispatch(delMusic(musicId));
+  };
 
   const API_URL = process.env.REACT_APP_API_URL;
 
   return (
     <section className="my_music animate__animated animate__fadeIn">
       <h1 className="animate__animated animate__fadeInUp">Мои треки</h1>
-      <div className='upload_music_link animate__animated animate__fadeInUp'><NavLink to={'/uploadmusic'}>Загрузить трек</NavLink></div>
+      <div className="upload_music_link animate__animated animate__fadeInUp">
+        <NavLink to={"/uploadmusic"}>Загрузить трек</NavLink>
+      </div>
       <div className="input_block animate__animated animate__fadeInUp">
         <input
           type="text"
@@ -51,15 +56,40 @@ const MyMusic = () => {
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
-      <div className="container animate__animated animate__fadeInLeft">
-        {isLoad ? <div className="loading_man">Загрузка...</div> : filteredMusic.length === 0 ? (
+      <div className="container animate__animated animate__fadeInUp">
+        {isLoad || !isAuth ? (
+          <div className="loading_man">Загрузка...</div>
+        ) : filteredMusic.length === 0 ? (
           <p className="no_your_musics">Ничего не найдено!</p>
         ) : (
-          filteredMusic.map(el => (
-            <div key={el._id} className="music_card" style={{background: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('${API_URL}${el.imageUrl}')`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
-              <div className="music_image" style={{background: `url('${API_URL}${el.imageUrl}')`, backgroundSize: 'cover', backgroundPosition: 'top'}} ></div>
+          filteredMusic.map((el) => (
+            <div
+              key={el._id}
+              className="music_card"
+              style={{
+                background: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('${API_URL}${el.imageUrl}')`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+            >
+              <div
+                className="music_image"
+                style={{
+                  background: `url('${API_URL}${el.imageUrl}')`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "top",
+                }}
+              ></div>
               <p className="music_title">{el.name}</p>
-              <button type="button" className="delete_music" onClick={() => {deleteMusicFunction(el._id)}}>Удалить</button>
+              <button
+                type="button"
+                className="delete_music"
+                onClick={() => {
+                  deleteMusicFunction(el._id);
+                }}
+              >
+                Удалить
+              </button>
             </div>
           ))
         )}

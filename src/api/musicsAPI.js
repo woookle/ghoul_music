@@ -4,33 +4,58 @@ import { toast } from "react-toastify";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
+const instance = axios.create({
+  baseURL: API_URL,
+  withCredentials: true,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
 export const getMusics = createAsyncThunk(
   'musics/getmusics',
-  async () => {
-    const response = await axios.get(`${API_URL}/musics`);
-    return response.data;
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await instance.get('/musics');
+      return response.data;
+    } catch (error) {
+      toast.error('Ошибка при загрузке списка треков!');
+      return rejectWithValue(error.response?.data || 'Server error');
+    }
   }
 );
 
 export const delMusic = createAsyncThunk(
   'musics/delmusic',
-  async (musicId) => {
-    const response = await axios.delete(`${API_URL}/musics/delete`, { data: { musicId } });
-    toast.success('Трек успешно удален!');
-    return response.data.musicId;
+  async ({ musicId }, { rejectWithValue }) => {
+    try {
+      const response = await instance.delete('/musics/delete', {
+        data: { musicId },
+      });
+      toast.success('Трек успешно удален!');
+      return response.data.musicId;
+    } catch (error) {
+      toast.error('Ошибка при удалении трека!');
+      return rejectWithValue(error.response?.data || 'Server error');
+    }
   }
 );
 
 export const uplMusic = createAsyncThunk(
   'musics/upload',
-  async (musicinfo) => {
-    const response = await axios.post(`${API_URL}/musics/upload`, musicinfo, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-    toast.success('Отлично!');
-    toast.info('Ваш трек будет добавлен в течени минуты!');
-    return response.data.media;
+  async (musicinfo, { rejectWithValue }) => {
+    try {
+      const response = await instance.post('/musics/upload', musicinfo, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      toast.success('Отлично!');
+      toast.info('Ваш трек будет добавлен в течени минуты!');
+      return response.data.media;
+    } catch (error) {
+      toast.error('Ошибка при загрузке трека!');
+      return rejectWithValue(error.response?.data || 'Server error');
+    }
   }
 );

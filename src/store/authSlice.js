@@ -1,27 +1,35 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addFavorites, changeAvatar, changeNickname, changePassword, loginActors, registerActor, removeFavorites } from "../api/artistAPI";
+import { addFavorites, changeAvatar, changeNickname, changePassword, checkAuth, exitAccount, loginActors, registerActor, removeFavorites } from "../api/artistAPI";
 
 const authSlice = createSlice({
   name: "auth",
   initialState: {
-    account: {},
+    account: null,
     isAuth: false
-  },
-  reducers: {
-    logout: (state, action) => {
-      state.account = {};
-      state.isAuth = false;
-    }
   },
   extraReducers: (builder) => {
     builder
-    .addCase(loginActors.fulfilled, (state, action) => {
-      state.account = action.payload;
+    .addCase(checkAuth.fulfilled, (state, action) => {
+      state.account = action.payload.user;
       state.isAuth = true;
     })
+    .addCase(checkAuth.rejected, (state, action) => {
+      state.account = null;
+      state.isAuth = false;
+    })
+    .addCase(loginActors.fulfilled, (state, action) => {
+      if(action.payload.user) {
+        state.account = action.payload.user;
+        state.isAuth = true;
+      }
+    })
     .addCase(registerActor.fulfilled, (state, action) => {
-      state.account = action.payload;
+      state.account = action.payload.actor;
       state.isAuth = true;
+    })
+    .addCase(exitAccount.fulfilled, (state, action) => {
+      state.account = null;
+      state.isAuth = false;
     })
     .addCase(addFavorites.fulfilled, (state, action) => {
       state.account.favoritesMusics.push(action.payload)
@@ -41,5 +49,4 @@ const authSlice = createSlice({
   },
 });
 
-export const { logout } = authSlice.actions;
 export default authSlice.reducer;

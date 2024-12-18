@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getMusics } from "../../api/musicsAPI";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
+import { faDownload, faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { changeAvatar } from "../../api/artistAPI";
 import MainSettings from "../AccountSettings/MainSettings";
 import {
@@ -11,6 +11,7 @@ import {
   setCurrentTrack,
   setTracks,
 } from "../../store/playerSlice";
+import downloadAudio from "../../utils/downloadAudio";
 
 const Me = () => {
   const dispatch = useDispatch();
@@ -33,9 +34,11 @@ const Me = () => {
   }, []);
 
   useEffect(() => {
-    const myMusicList = musics.filter((el) => el.userId._id === me._id);
-    setMyMusic(myMusicList);
-    setTotalTracks(myMusicList.length);
+    if(me) {
+      const myMusicList = musics.filter((el) => el.userId._id === me._id);
+      setMyMusic(myMusicList);
+      setTotalTracks(myMusicList.length);
+    }
   }, [isLoad, me]);
 
   const filteredMusic = mymusic.filter((el) =>
@@ -70,8 +73,8 @@ const Me = () => {
     <section className="my_account animate__animated animate__fadeIn">
       {isOpenSettings && <MainSettings setIsOpen={setIsOpen} />}
       <div className="container">
-        <div className="top_block animate__animated animate__fadeInLeft">
-          <div className="avatar_and_nickname">
+        <div className="top_block animate__animated animate__fadeInDown">
+          {me != null ? <div className="avatar_and_nickname">
             <div
               className="avatar_image"
               style={{
@@ -94,12 +97,12 @@ const Me = () => {
                 Настройки
               </button>
             </div>
-          </div>
+          </div> : <div className="avatar_and_nickname">Загрузка...</div>}
           <div className="total_tracks">
             {isLoad || me == [] ? "Загрузка..." : `Треков: ${totalTracks}`}
           </div>
         </div>
-        <div className="main_content animate__animated animate__fadeInRight">
+        <div className="main_content animate__animated animate__fadeInUp">
           <div className="search_block">
             <input
               type="text"
@@ -109,7 +112,7 @@ const Me = () => {
             />
           </div>
           <div className="tracks">
-            {isLoad || me == [] ? (
+            {isLoad || me == null ? (
               <div>Загрузка...</div>
             ) : filteredMusic.length === 0 ? (
               <p className="no_your_musics">Ничего не найдено!</p>
@@ -156,6 +159,11 @@ const Me = () => {
                     </div>
                     <div className="duration_and_isFavorite">
                       <p className="duration">{el.duration}</p>
+                      <FontAwesomeIcon
+                        icon={faDownload}
+                        className="download_icon"
+                        onClick={() => downloadAudio(el._id)}
+                      />
                     </div>
                   </div>
                 </div>

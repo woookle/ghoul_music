@@ -4,6 +4,7 @@ import musicsRoutes from "./routes/musicsRoutes.mjs";
 import mongoose from "mongoose";
 import actorsRoutes from "./routes/actorsRoutes.mjs";
 import { config } from "dotenv";
+import cookieParser from "cookie-parser";
 
 config({ path: ".env" });
 
@@ -23,7 +24,15 @@ const app = express();
 
 app.use(express.json());
 app.use("/uploads", express.static("uploads"));
-app.use(cors());
+app.use(cookieParser());
+
+
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  exposedHeaders: ['Content-Disposition'],
+}));
 
 app.use(musicsRoutes);
 app.use(actorsRoutes);

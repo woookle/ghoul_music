@@ -7,10 +7,17 @@ import {
   pauseAudio,
   setCurrentTime,
   setDuration,
+  previousTrack,
+  nextTrack,
 } from "../../store/playerSlice";
 import style from "./music.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPause,
+  faPlay,
+  faStepBackward,
+  faStepForward,
+} from "@fortawesome/free-solid-svg-icons";
 
 const formatTime = (time) => {
   const minutes = Math.floor(time / 60);
@@ -23,12 +30,47 @@ const MusicPlayer = () => {
 
   const audioRef = useRef(null);
 
-  const { tracks, currentTrackIndex, isPlaying, currentTime, duration } = useSelector((state) => state.player);
+  const { tracks, currentTrackIndex, isPlaying, currentTime, duration } =
+    useSelector((state) => state.player);
 
   const [currentMusicUrl, setCurrentMusicUrl] = useState("");
 
   const API_URL = process.env.REACT_APP_API_URL;
 
+  // Обновляем URL текущего трека только при изменении индекса трека или списка треков
+  useEffect(() => {
+    if (
+      tracks.length > 0 &&
+      tracks[currentTrackIndex] &&
+      tracks[currentTrackIndex].audioUrl
+    ) {
+      setCurrentMusicUrl(`${API_URL}${tracks[currentTrackIndex].audioUrl}`);
+    } else {
+      setCurrentMusicUrl("");
+    }
+  }, [currentTrackIndex, tracks, API_URL]);
+
+  // Устанавливаем src аудиоэлемента только при изменении URL трека
+  useEffect(() => {
+    if (audioRef.current && currentMusicUrl) {
+      audioRef.current.src = currentMusicUrl;
+    }
+  }, [currentMusicUrl]);
+
+  // Управляем воспроизведением/паузой только при изменении isPlaying
+  useEffect(() => {
+    if (audioRef.current && currentMusicUrl) {
+      if (isPlaying) {
+        audioRef.current.play().catch((error) => {
+          console.error("Error playing audio:", error);
+        });
+      } else {
+        audioRef.current.pause();
+      }
+    }
+  }, [isPlaying, currentMusicUrl]);
+
+  // Обработчики событий аудиоэлемента
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.addEventListener("timeupdate", handleTimeUpdate);
@@ -46,29 +88,6 @@ const MusicPlayer = () => {
       }
     };
   }, [audioRef]);
-
-  useEffect(() => {
-    if (
-      tracks.length > 0 &&
-      tracks[currentTrackIndex] &&
-      tracks[currentTrackIndex].audioUrl
-    ) {
-      setCurrentMusicUrl(`${API_URL}${tracks[currentTrackIndex].audioUrl}`);
-    } else {
-      setCurrentMusicUrl("");
-    }
-  }, [currentTrackIndex, tracks, API_URL]);
-
-  useEffect(() => {
-    if (audioRef.current && currentMusicUrl) {
-      audioRef.current.src = currentMusicUrl;
-      if (isPlaying) {
-        audioRef.current.play().catch((error) => {
-          console.error("Error playing audio:", error);
-        });
-      }
-    }
-  }, [currentMusicUrl, isPlaying]);
 
   const handlePlay = () => {
     dispatch(playAudio());
@@ -88,7 +107,6 @@ const MusicPlayer = () => {
 
   const handleTrackEnded = () => {
     dispatch(setCurrentTrackIndex());
-    audioRef.current.play();
   };
 
   const handleSeekChange = (e) => {
@@ -99,10 +117,10 @@ const MusicPlayer = () => {
 
   return (
     <div
-      className={style.music__bar}
+      className={`${style.music__bar} ${isPlaying ? style.active : ""}`}
       style={{
         background:
-          tracks.length != 0
+          tracks.length > 0
             ? `url("${API_URL}${tracks[currentTrackIndex].imageUrl}")`
             : "black",
       }}
@@ -119,7 +137,7 @@ const MusicPlayer = () => {
               className={style.button_background}
               style={{
                 backgroundImage:
-                  tracks.length != 0 &&
+                  tracks.length > 0 &&
                   `url("${API_URL}${tracks[currentTrackIndex].imageUrl}")`,
               }}
             ></div>
@@ -131,6 +149,24 @@ const MusicPlayer = () => {
               )}
             </div>
           </button>
+          <div className={style.track_buttons}>
+            <button
+              onClick={() => {
+                tracks.length != 0 ? dispatch(previousTrack()) : false;
+              }}
+              className={style.trackButton}
+            >
+              <FontAwesomeIcon icon={faStepBackward} />
+            </button>
+            <button
+              onClick={() => {
+                tracks.length != 0 ? dispatch(nextTrack()) : false;
+              }}
+              className={style.trackButton}
+            >
+              <FontAwesomeIcon icon={faStepForward} />
+            </button>
+          </div>
         </div>
         <div className={style.music__right}>
           <div className={style.music_time_container}>

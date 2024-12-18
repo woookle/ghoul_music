@@ -1,22 +1,44 @@
 import actorsModule from "../models/actorsModule.mjs";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 export const addActor = async (req, res) => {
   try {
     const { nickname, email, password } = req.body;
 
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
     const actorDoc = new actorsModule({
       nickname,
       email,
-      password,
+      password: hashedPassword,
     });
 
     await actorDoc.save();
+
+    const token = jwt.sign(
+      {
+        _id: actorDoc._id,
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "30d",
+      }
+    );
+
+    res.cookie("jwt", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: 'Lax',
+      maxAge: 2592000000,
+    });
 
     res
       .status(200)
       .json({ message: "Артист успешно создан!", actor: actorDoc });
   } catch (error) {
-    return res.status(404).json({ message: "Ошибка!" });
+    return res.status(404).json({ message: error.message });
   }
 };
 
@@ -27,9 +49,28 @@ export const loginActor = async (req, res) => {
     if (!user) {
       return res.status(500).json({ message: "Неправильный логин или пароль" });
     }
+    if (
+      bcrypt.compare(user.password, req.body.password) ||
+      user.password == req.body.password
+    ) {
+      const token = jwt.sign(
+        {
+          _id: user._id,
+        },
+        process.env.JWT_SECRET,
+        {
+          expiresIn: "30d",
+        }
+      );
 
-    if (user.password == req.body.password) {
-      return res.status(200).json(user);
+      res.cookie("jwt", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: 'Lax',
+        maxAge: 2592000000,
+      });
+
+      return res.status(200).json({ user });
     } else {
       return res.status(500).json({ message: "Неправильный логин или пароль" });
     }
@@ -104,8 +145,9 @@ export const changeAvatar = async (req, res) => {
 
     await user.save();
 
-    return res.status(200).json({message: "Аватарка успешно изменена!", newpath: imageUrl})
-
+    return res
+      .status(200)
+      .json({ message: "Аватарка успешно изменена!", newpath: imageUrl });
   } catch (error) {
     return res.status(404).json({ message: "Ошибка!" });
   }
@@ -123,11 +165,11 @@ export const changeNickname = async (req, res) => {
 
     await user.save();
 
-    return res.status(200).json({message: "Ник успешно изменен"})
+    return res.status(200).json({ message: "Ник успешно изменен" });
   } catch (error) {
-    return res.status(404).json({message: "Ошибка!"})
+    return res.status(404).json({ message: "Ошибка!" });
   }
-}
+};
 
 export const changePassword = async (req, res) => {
   try {
@@ -141,8 +183,28 @@ export const changePassword = async (req, res) => {
 
     await user.save();
 
-    return res.status(200).json({message: "Пароль успешно изменен"})
+    return res.status(200).json({ message: "Пароль успешно изменен" });
   } catch (error) {
-    return res.status(404).json({message: "Ошибка!"})
+    return res.status(404).json({ message: "Ошибка!" });
   }
-}
+};
+
+export const logoutActor = async (req, res) => {
+  try {
+    res.clearCookie("jwt");
+    res.status(200).json({ message: "Вы успешно вышли с аккаунта!" });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+export const checkAccount = async (req, res) => {
+  try {
+    
+    const user = req.user;
+    return res.status(200).json({ user })
+
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};

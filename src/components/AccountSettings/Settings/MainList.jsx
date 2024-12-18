@@ -1,19 +1,18 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../../store/authSlice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { playerLogoutTrigger } from "../../../store/playerSlice";
+import { exitAccount } from "../../../api/artistAPI";
 
 const MainList = ({ setItem, setIsOpen }) => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const username = useSelector(state => state.auth.account.nickname)
-
   const logoutfromaccount = () => {
-    toast.success(`До свидания, ${username}!`);
-    dispatch(logout());
+    dispatch(exitAccount());
+    dispatch(playerLogoutTrigger());
     navigate('/')
   }
 

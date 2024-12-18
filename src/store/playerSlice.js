@@ -17,10 +17,16 @@ const playerSlice = createSlice({
       state.currentTrackIndex = 0;
     },
     setCurrentTrack: (state, action) => {
-      state.currentTrackIndex = action.payload
+      state.currentTrackIndex = action.payload;
     },
     setCurrentTrackIndex: (state, action) => {
       state.currentTrackIndex = (state.currentTrackIndex + 1) % state.tracks.length;
+    },
+    previousTrack: (state, action) => {
+      state.currentTrackIndex = (state.currentTrackIndex - 1 + state.tracks.length) % state.tracks.length;
+    },
+    nextTrack: (state, action) => {
+      state.currentTrackIndex = (state.currentTrackIndex + 1) % state.tracks.length
     },
     playAudio: (state) => {
       state.isPlaying = true;
@@ -34,8 +40,27 @@ const playerSlice = createSlice({
     setDuration: (state, action) => {
       state.duration = action.payload;
     },
+    playerLogoutTrigger: (state, action) => {
+      state.tracks = [];
+      state.currentTrackIndex = 0;
+      state.isPlaying = false;
+      state.currentTime = 0;
+      state.duration = 0;
+    },
   },
 });
 
-export const { setTracks, setCurrentTrack, setCurrentTrackIndex, playAudio, pauseAudio, setCurrentTime, setDuration } = playerSlice.actions;
+export const {
+  setTracks,
+  setCurrentTrack,
+  setCurrentTrackIndex,
+  playAudio,
+  pauseAudio,
+  setCurrentTime,
+  setDuration,
+  playerLogoutTrigger,
+  previousTrack,
+  nextTrack
+} = playerSlice.actions;
+
 export default playerSlice.reducer;

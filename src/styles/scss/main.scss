@@ -40,6 +40,13 @@ body {
   margin: 0 auto;
 }
 
+.download_icon, .favorite_icon_isauth {
+  cursor: pointer;
+  &:hover {
+    opacity: 0.6;
+  }
+}
+
 @media (max-width: 768px) {
   .container {
     padding: 0 10px;

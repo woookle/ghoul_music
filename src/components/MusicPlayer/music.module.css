@@ -7,6 +7,10 @@
   background-size: cover !important;
 }
 
+.music__bar.active .music__container {
+  backdrop-filter: blur(10px);
+}
+
 .music__bar .music__container {
   width: 100%;
   padding: 20px;
@@ -16,7 +20,28 @@
   align-items: center;
   justify-content: space-between; 
   gap: 35px;
-  backdrop-filter: blur(10px);
+  transition: all 0.8s ease;
+}
+
+.music_left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.track_buttons {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.track_buttons button {
+  color: #fff;
+}
+
+.track_buttons button:hover {
+  background-color: #fff;
+  color: black;
 }
 
 .music_left button {
@@ -48,6 +73,14 @@
   animation: rotating 10s linear infinite;
 }
 
+.music_left .trackButton {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-color: transparent;
+  border: 2px solid #fff;
+}
+
 
 .music_left button.pausedButton .button_background {
   animation-play-state: paused;
@@ -74,4 +107,16 @@
 @keyframes rotating {
   0% {transform: rotate(0deg);}
   100% {transform: rotate(360deg);}
+}
+
+@keyframes backgroundAnimate {
+  0% {
+    background-size: 100%;
+  }
+  50% {
+    background-size: 80%;
+  }
+  100% {
+    background-size: 100%;
+  }
 }

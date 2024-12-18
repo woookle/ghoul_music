@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay, faHeart, faPause } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlay,
+  faHeart,
+  faPause,
+  faDownload,
+} from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { getMusics } from "../../api/musicsAPI";
 import { toast } from "react-toastify";
@@ -12,6 +17,7 @@ import {
   setTracks,
 } from "../../store/playerSlice";
 import { NavLink } from "react-router-dom";
+import downloadAudio from "../../utils/downloadAudio";
 
 const Catalog = () => {
   const dispatch = useDispatch();
@@ -78,7 +84,7 @@ const Catalog = () => {
           onChange={(e) => setSearch(e.target.value)}
           className="animate__animated animate__fadeInUp"
         />
-        <div className="musics_container animate__animated animate__fadeInLeft">
+        <div className="musics_container animate__animated animate__fadeInUp">
           {slicedList.length == 0 ? (
             <p className="no_music_catalog">Ничего не найдено!</p>
           ) : (
@@ -92,35 +98,29 @@ const Catalog = () => {
                       style={{
                         backgroundImage: `url(${API_URL}${el.imageUrl})`,
                       }}
+                      onClick={() => {isPlay && playerMusicsList[currentTrackIndex].name == el.name ? pauseMusic(index) : playMusic(index)}}
                     >
                       {playerMusicsList.length != 0 ? (
                         isPlay &&
                         playerMusicsList[currentTrackIndex].name == el.name ? (
                           <FontAwesomeIcon
                             icon={faPause}
-                            onClick={() => pauseMusic(index)}
                           />
                         ) : (
                           <FontAwesomeIcon
                             icon={faPlay}
-                            onClick={() => {
-                              playMusic(index);
-                            }}
                           />
                         )
                       ) : (
                         <FontAwesomeIcon
                           icon={faPlay}
-                          onClick={() => {
-                            playMusic(index);
-                          }}
                         />
                       )}
                     </button>
                     <div className="actor_and_nickname">
                       <p className="music_name">{el.name}</p>
                       <NavLink
-                        to={`/profile/${el.userId._id}`}
+                        to={auth.account ? auth.account._id == el.userId._id ? '/me' : `/profile/${el.userId._id}` :  `/profile/${el.userId._id}`}
                         className="music_actor"
                       >
                         {el.userId.nickname}
@@ -133,14 +133,14 @@ const Catalog = () => {
                       auth.account.favoritesMusics.includes(el._id) ? (
                         <FontAwesomeIcon
                           icon={faHeart}
-                          className="favorite_icon"
+                          className="favorite_icon_isauth"
                           onClick={() => removeFromFavorite(el._id)}
                           style={{ color: "#ff3c3c" }}
                         />
                       ) : (
                         <FontAwesomeIcon
                           icon={faHeart}
-                          className="favorite_icon"
+                          className="favorite_icon_isauth"
                           onClick={() => addToFavorite(el._id)}
                         />
                       )
@@ -151,6 +151,11 @@ const Catalog = () => {
                         onClick={() => addToFavorite(el._id)}
                       />
                     )}
+                    <FontAwesomeIcon
+                      icon={faDownload}
+                      className="download_icon"
+                      onClick={() => downloadAudio(el._id)}
+                    />
                   </div>
                 </div>
               </div>
