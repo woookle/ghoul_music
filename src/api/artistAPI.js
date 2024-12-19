@@ -120,10 +120,10 @@ export const changePassword = createAsyncThunk(
   async (mus, { rejectWithValue }) => {
     try {
       const response = await instance.patch("/actor/changepassword", mus);
-      toast.success("Пароль успешно изменен!");
+      toast.success(response.data.message);
       return mus.newpassword;
     } catch (error) {
-      toast.error("Ошибка при изменении пароля!");
+      toast.error("Неправильный старый пароль!");
       return rejectWithValue(error.response?.data || 'Server error');
     }
   }

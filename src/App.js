@@ -14,6 +14,7 @@ import Favorites from "./components/Favorites/Favorites";
 import Me from "./components/Me/Me";
 import Profile from "./components/Profile/Profile";
 import UploadMusic from "./components/UploadMusic/UploadMusic";
+import DynamicTitle from "./components/DynamicTitle/DynamicTitle";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
       </main>
       <Footer />
       <MusicPlayer />
+      <DynamicTitle />
       <ToastContainer
         theme="dark"
         closeOnClick={true}

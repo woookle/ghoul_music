@@ -30,7 +30,7 @@ export const addActor = async (req, res) => {
     res.cookie("jwt", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: 'Lax',
+      sameSite: "Lax",
       maxAge: 2592000000,
     });
 
@@ -49,10 +49,10 @@ export const loginActor = async (req, res) => {
     if (!user) {
       return res.status(500).json({ message: "Неправильный логин или пароль" });
     }
-    if (
-      bcrypt.compare(user.password, req.body.password) ||
-      user.password == req.body.password
-    ) {
+
+    const isValidPass = await bcrypt.compare(req.body.password, user.password);
+
+    if (isValidPass) {
       const token = jwt.sign(
         {
           _id: user._id,
@@ -66,7 +66,7 @@ export const loginActor = async (req, res) => {
       res.cookie("jwt", token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: 'Lax',
+        sameSite: "Lax",
         maxAge: 2592000000,
       });
 
@@ -179,19 +179,32 @@ export const changePassword = async (req, res) => {
       return res.status(500).json({ message: "Музыкант не найден" });
     }
 
-    user.password = req.body.newpassword;
+    const isVerifyPassword = await bcrypt.compare(req.body.correctpassword, user.password);
+
+    if(!isVerifyPassword) {
+      return res.status(500).json({message: "Старый пароль не совпадает!"})
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(req.body.newpassword, salt);
+
+    user.password = hashedPassword;
 
     await user.save();
 
-    return res.status(200).json({ message: "Пароль успешно изменен" });
+    return res.status(200).json({ message: "Пароль успешно изменен!" });
   } catch (error) {
-    return res.status(404).json({ message: "Ошибка!" });
+    return res.status(404).json({ message: "Ошибка изменения пароля!" });
   }
 };
 
 export const logoutActor = async (req, res) => {
   try {
-    res.clearCookie("jwt");
+    res.clearCookie("jwt", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "Lax",
+    });
     res.status(200).json({ message: "Вы успешно вышли с аккаунта!" });
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -200,10 +213,8 @@ export const logoutActor = async (req, res) => {
 
 export const checkAccount = async (req, res) => {
   try {
-    
     const user = req.user;
-    return res.status(200).json({ user })
-
+    return res.status(200).json({ user });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

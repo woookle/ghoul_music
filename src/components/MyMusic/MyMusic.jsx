@@ -16,25 +16,26 @@ const MyMusic = () => {
   const auth = useSelector((state) => state.auth.account);
   const musics = useSelector((state) => state.music.musics);
   const isLoad = useSelector((state) => state.music.isLoad);
-  const isAuth = useSelector((state) => state.auth.isAuth)
+  const isAuth = useSelector((state) => state.auth.isAuth);
 
   const [mymusiclist, setMyMusicList] = useState([]);
 
   useEffect(() => {
-    if (auth && musics) {
+    if (mymusiclist) {
       const filtered = mymusiclist.filter((el) =>
         el.name.toLowerCase().includes(search.toLowerCase())
       );
       setFilteredMusic(filtered);
     }
-  }, [search, isLoad]);
-
+  }, [mymusiclist, search]);
+  
   useEffect(() => {
-    if (auth) {
+    if (auth && musics) {
       const mylist = musics.filter((el) => el.userId._id === auth._id);
       setMyMusicList(mylist);
+      setFilteredMusic(mylist);
     }
-  }, [isLoad]);
+  }, [musics, auth]);
 
   const deleteMusicFunction = (musicId) => {
     dispatch(delMusic(musicId));

@@ -127,6 +127,7 @@ const Me = () => {
                         style={{
                           backgroundImage: `url(${API_URL}${el.imageUrl})`,
                         }}
+                        onClick={() => {isPlay && playerMusicsList[currentTrackIndex].name == el.name ? pauseMusic(index) : playMusic(index)}}
                       >
                         {playerMusicsList.length != 0 ? (
                           isPlay &&
@@ -134,22 +135,15 @@ const Me = () => {
                             el.name ? (
                             <FontAwesomeIcon
                               icon={faPause}
-                              onClick={() => pauseMusic(index)}
                             />
                           ) : (
                             <FontAwesomeIcon
                               icon={faPlay}
-                              onClick={() => {
-                                playMusic(index);
-                              }}
                             />
                           )
                         ) : (
                           <FontAwesomeIcon
                             icon={faPlay}
-                            onClick={() => {
-                              playMusic(index);
-                            }}
                           />
                         )}
                       </button>

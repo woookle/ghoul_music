@@ -1,11 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 header {
-  background-color: #404040;
+  background-color: rgba(0, 0, 0, 0.5);
   height: 100px;
   display: flex;
   align-items: center;
   position: fixed;
   width: 100%;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.7);
   top: 0;
   z-index: 1000;
 }
@@ -116,7 +117,8 @@ footer {
   height: 100px;
   display: flex;
   align-items: center;
-  background-color: #404040;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-top: 1px solid rgba(255, 255, 255, 0.7);
 }
 footer .container {
   display: flex;
@@ -1194,7 +1196,8 @@ footer .container {
 }
 
 body {
-  background-color: #1E1E1E;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../../assets/gifs/background.gif") no-repeat center center fixed;
+  background-size: cover;
   padding-top: 100px;
   padding-bottom: 140px;
 }
@@ -1215,10 +1218,12 @@ body {
   margin: 0 auto;
 }
 
-.download_icon, .favorite_icon_isauth {
+.download_icon,
+.favorite_icon_isauth {
   cursor: pointer;
 }
-.download_icon:hover, .favorite_icon_isauth:hover {
+.download_icon:hover,
+.favorite_icon_isauth:hover {
   opacity: 0.6;
 }
 

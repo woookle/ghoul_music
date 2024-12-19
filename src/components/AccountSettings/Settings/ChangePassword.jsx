@@ -22,15 +22,16 @@ const ChangePassword = (props) => {
   };
 
   const changePas = () => {
-    if (user.password !== correctpassword) {
-      return toast.error("Неправильный пароль");
-    } else if (newpassword !== verifypassword) {
-      return toast.error("Неправильный пароль");
-    } else if (user.password == newpassword) {
-      return toast.error('Пароль должен отличаться')
+    if (newpassword !== verifypassword) {
+      return toast.error("Пароли не совпадают");
     } else {
-      dispatch(changePassword({ userId: user._id, newpassword: newpassword }));
-      props.setIsOpen(false);
+      dispatch(
+        changePassword({ userId: user._id, correctpassword, newpassword })
+      ).then((response) => {
+        if (response.meta.requestStatus !== "rejected") {
+          props.setIsOpen(false);
+        }
+      });
     }
   };
 

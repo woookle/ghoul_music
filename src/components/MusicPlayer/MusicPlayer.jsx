@@ -17,6 +17,9 @@ import {
   faPlay,
   faStepBackward,
   faStepForward,
+  faVolumeUp,
+  faVolumeDown,
+  faVolumeMute,
 } from "@fortawesome/free-solid-svg-icons";
 
 const formatTime = (time) => {
@@ -34,6 +37,9 @@ const MusicPlayer = () => {
     useSelector((state) => state.player);
 
   const [currentMusicUrl, setCurrentMusicUrl] = useState("");
+  const [volume, setVolume] = useState(1);
+  const [isMuted, setIsMuted] = useState(false);
+  const [lastVolume, setLastVolume] = useState(1);
 
   const API_URL = process.env.REACT_APP_API_URL;
 
@@ -89,6 +95,14 @@ const MusicPlayer = () => {
     };
   }, [audioRef]);
 
+  // Устанавливаем громкость аудиоэлемента
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = volume;
+      audioRef.current.muted = isMuted;
+    }
+  }, [volume, isMuted]);
+
   const handlePlay = () => {
     dispatch(playAudio());
   };
@@ -106,13 +120,32 @@ const MusicPlayer = () => {
   };
 
   const handleTrackEnded = () => {
-    dispatch(setCurrentTrackIndex());
+    dispatch(nextTrack()); // Переключаем на следующий трек после завершения текущего
   };
 
   const handleSeekChange = (e) => {
     const newTime = parseFloat(e.target.value);
     audioRef.current.currentTime = newTime;
     dispatch(setCurrentTime(newTime));
+  };
+
+  const handleVolumeChange = (e) => {
+    const newVolume = parseFloat(e.target.value);
+    setVolume(newVolume);
+    setIsMuted(newVolume === 0);
+    if (newVolume !== 0) {
+      setLastVolume(newVolume);
+    }
+  };
+
+  const toggleMute = () => {
+    if (isMuted) {
+      setVolume(lastVolume);
+    } else {
+      setLastVolume(volume);
+      setVolume(0);
+    }
+    setIsMuted(!isMuted);
   };
 
   return (
@@ -180,6 +213,29 @@ const MusicPlayer = () => {
             max={duration}
             value={currentTime}
             onChange={handleSeekChange}
+          />
+        </div>
+        <div className={style.volume_controls}>
+          <button
+            onClick={toggleMute}
+            className={`${style.volumeButton} ${isMuted && style.mute}`}
+          >
+            {isMuted || volume === 0 ? (
+              <FontAwesomeIcon icon={faVolumeMute} />
+            ) : volume < 0.5 ? (
+              <FontAwesomeIcon icon={faVolumeDown} />
+            ) : (
+              <FontAwesomeIcon icon={faVolumeUp} />
+            )}
+          </button>
+          <input
+            className={style.volumeSlider}
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            value={volume}
+            onChange={handleVolumeChange}
           />
         </div>
       </div>

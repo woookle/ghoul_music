@@ -41,4 +41,9 @@ DATABASE_URL = 'your_mongodb_database_url'
 ```
 <br />
 
-<h2 align='center'>ᴇɴᴊᴏʏ :3</h2>
+<div>
+  <p align='center'>
+    <img src='https://media1.tenor.com/m/gXcCWb6D7wsAAAAd/touka-kirishima-touka-love-snow.gif' />
+  </p>
+  <h2 align='center'>ᴇɴᴊᴏʏ :3</h2>
+</div>

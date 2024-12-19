@@ -1,10 +1,11 @@
 header {
-  background-color: $header__background;
+  background-color: rgba(0, 0, 0, 0.5);
   height: 100px;
   display: flex;
   align-items: center;
   position: fixed;
   width: 100%;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.7);
   top: 0;
   z-index: 1000;
   .container {

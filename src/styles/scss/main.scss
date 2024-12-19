@@ -1,8 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-
-$header__background: #404040;
-$footer__background: #404040;
-$body__background: #1E1E1E;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 
 @import "./blocks/header";
 @import "./blocks/footer";
@@ -15,11 +11,18 @@ $body__background: #1E1E1E;
 @import "./blocks/account_settings";
 @import "./blocks/uploading_music";
 
-* {margin: 0; padding: 0; box-sizing: border-box; font-family: "Montserrat", sans-serif; transition: all 0.3s ease;}
-
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+  transition: all 0.3s ease;
+}
 
 body {
-  background-color: $body__background;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url("../../assets/gifs/background.gif") no-repeat center center fixed;
+  background-size: cover;
   padding-top: 100px;
   padding-bottom: 140px;
 }
@@ -40,7 +43,8 @@ body {
   margin: 0 auto;
 }
 
-.download_icon, .favorite_icon_isauth {
+.download_icon,
+.favorite_icon_isauth {
   cursor: pointer;
   &:hover {
     opacity: 0.6;
